@@ -31,7 +31,7 @@ type Markdown struct {
 }
 
 // Browse available themes: https://xyproto.github.io/splash/docs/all.html
-const DefaultTheme = "tokyonight-night"
+const DefaultTheme = "github-dark"
 
 // New creates a goldmark instance with the given Chroma theme name.
 // Browse available themes: https://xyproto.github.io/splash/docs/all.html
