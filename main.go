@@ -11,7 +11,6 @@ import (
 	h "github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
-	"go.abhg.dev/goldmark/toc"
 )
 
 type imageUnwrap struct{}
@@ -56,15 +55,6 @@ func New(theme string) *Markdown {
 	)}
 }
 
-func (m *Markdown) Convert(src []byte, w io.Writer, withTOC bool) error {
-	if !withTOC {
-		return m.md.Convert(src, w)
-	}
-	reader := text.NewReader(src)
-	doc := m.md.Parser().Parse(reader)
-	tree, _ := toc.Inspect(doc, src, toc.Compact(true))
-	if list := toc.RenderList(tree); list != nil {
-		doc.InsertBefore(doc, doc.FirstChild(), list)
-	}
-	return m.md.Renderer().Render(w, src, doc)
+func (m *Markdown) Convert(src []byte, w io.Writer) error {
+	return m.md.Convert(src, w)
 }
